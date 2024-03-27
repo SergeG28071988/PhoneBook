@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Изменить контакт - My Phone Book {% endblock %}
+
+{% block content %}
+
+<br><br><br>
+
+<h4> {{ header }}</h4>
+<br>
+<div class="container">
+    <form  method="POST">
+        {% csrf_token %}
+
+        {%  for field in form  %}
+        <div class="form group">
+            <label for="id_{{ field.last_name }}" class="col-2 col-form-label">{{ field.label }}</label>
+            <div class="col-10">
+                {{ field }}
+            </div>
+        </div>
+        {%  endfor %}
+
+        <div class="button-container">
+            <button type="submit" class="btn btn-primary" name="button">Изменить</button>
+            <a href="{% url 'index' %}" class="btn btn-secondary">Назад </a>
+        </div>
+        <br>
+    </form>
+
+</div>
+{% endblock %}

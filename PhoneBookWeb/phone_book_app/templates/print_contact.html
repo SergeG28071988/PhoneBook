@@ -1,0 +1,31 @@
+<!-- print_contacts.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br><br><br>
+
+<h1>Контакты</h1>
+<table class="table table-hover">
+  <tr>
+    <th>Фамилия</th>
+    <th>Имя</th>
+    <th>Дата рождения</th>
+    <th>Адрес</th>
+    <th>Почта</th>
+    <th>Телефон</th>
+    <th>Категория</th>
+  </tr>
+  {% for contact in contacts %}
+  <tr>
+    <td>{{ contact.last_name }}</td>
+    <td>{{ contact.first_name }}</td>
+    <td>{{ contact.date_of_birth }}</td>
+    <td>{{ contact.address }}</td>
+    <td>{{ contact.email }}</td>
+    <td>{{ contact.phone_number }}</td>
+    <td>{{ contact.category }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

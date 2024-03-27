@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title  %}
+{{ title }}
+{% endblock  %}
+
+{% block content  %}
+<br><br>
+<h1>Мои контакты</h1>
+<br>
+<div class="button-group">
+    <a href="#" id="show-contacts-btn" class="btn btn-primary btn-end" role="button">Контакты</a>
+    <a href="{% url 'add_contact' %}" class="btn btn-warning btn-sm" role="button"> +</a>
+    <a href="{% url 'print_contacts' %}" class="btn btn-info btn-sm" onclick="window.print();">Печать</a> <!-- Добавляем кнопку печати -->
+</div>
+<br>
+<h4>Currently, Viewing {{ header }}</h4>
+
+<!-- Форма поиска по фамилии  -->
+<form action="{% url 'search_contacts' %}" method="GET">
+    <input type="text" name="last_name" placeholder="Search by last_name">
+    <div class="button-container">
+        <button type="submit" class="btn btn-primary" name="button">Поиск контактов</button>
+        <a href="{% url 'display_contacts' %}" class="btn btn-secondary" role="button">Перезагрузка</a>
+    </div>
+</form>
+<br><br>
+<div class="card-columns" id="contacts-cards" style="display:none;">
+    {% for contact in contacts %}
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ contact.last_name }} {{ contact.first_name }}</h5>
+                <p class="card-text"><strong>Дата рождения:</strong> {{ contact.date_of_birth }}</p>
+                <p class="card-text"><strong>Адрес:</strong> {{ contact.address }}</p>
+                <p class="card-text"><strong>Электронная почта:</strong> {{ contact.email }}</p>
+                <p class="card-text"><strong>Телефон:</strong> {{ contact.phone_number }}</p>
+                <p class="card-text"><strong>Категория:</strong> {{ contact.category }}</p>
+                <a href="{% url 'contact_detail' contact.pk %}" class="btn btn-warning btn-sm" role="button">Подробнее</a>
+                <a href="{% url 'edit_contact' contact.pk %}" class="btn btn-success btn-sm" role="button">Изменить</a>
+            </div>
+        </div>
+    <br>
+    {% endfor %}
+</div>
+
+<script>
+    // Скрываем карточки при загрузке страницы
+    document.getElementById("contacts-cards").style.display = "none";
+
+    document.getElementById("show-contacts-btn").addEventListener("click", function() {
+        document.getElementById("contacts-cards").style.display = "block";
+    });
+
+    // Скрываем карточки после каждого поиска
+    document.querySelector("form[action='{% url 'search_contacts' %}']").addEventListener("submit", function() {
+        document.getElementById("contacts-cards").style.display = "none";
+    });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Детали контакта
+{% endblock %}
+
+{% block content %}
+<br>
+
+<div class="container mt-5">
+    <h1 class="text-center">Детали контакта</h1>
+    <div class="alert alert-info">
+       <!-- Добавляем код в соответствии с моделью Contact -->
+        <p><strong>Фамилия:</strong> {{ contact.last_name }}</p>
+        <p><strong>Имя:</strong> {{ contact.first_name }}</p>
+        <p><strong>Дата рождения:</strong> {{ contact.date_of_birth }}</p>
+        <p><strong>Адрес проживания:</strong> {{ contact.address }}</p>
+        <p><strong>Электронная почта:</strong> {{ contact.email }}</p>
+        <p><strong>Номер телефона:</strong> {{ contact.phone_number }}</p>
+        <p><strong>Категория контакта:</strong> {{ contact.get_category_display }}</p>
+        <a href="{% url 'display_contacts' %}" class="btn btn-warning" role="button">Назад</a>
+        <a href="{% url 'delete_contact' contact.pk %}" class="btn btn-success" role="button">Удалить</a>
+        <a href="{% url 'print_contacts' %}" class="btn btn-info btn-sm" onclick="window.print();">Печать</a>
+    </div>
+</div> 
+{% endblock %}
